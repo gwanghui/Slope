@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/app/index.js",
+    "watch": "babel-watch src/app/index.js",
+    "build": "babel src/app --out-dir build/app",
+    "test": "mocha --compilers js:babel-core/register src/test/**/*.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "async": "^2.5.0",
     "axios": "^0.16.2",
-    "babel-cli": "^6.24.1",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
@@ -26,10 +28,13 @@
     "uuid": "^3.1.0"
   },
   "dependencies": {
+    "babel-watch": "^2.0.7",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "lowdb": "^1.0.0",
+    "mongoose": "^5.0.0",
+    "request": "^2.81.0",
     "winston": "^2.4.0",
     "winston-daily-rotate-file": "^1.7.2"
   }
