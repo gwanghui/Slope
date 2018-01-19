@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from './util/logger';
+import {run} from './looper/looper';
 import pubilcRouter from "./router/public";
 
 const app = express();
@@ -21,4 +22,5 @@ app.use((err, req, res) => {
 const PORT = process.env.PORT || 17000;
 app.listen(PORT, () => {
     logger.info(`Slice app listening on port ${PORT}!`);
+    run('klines', 'binance');
 });
