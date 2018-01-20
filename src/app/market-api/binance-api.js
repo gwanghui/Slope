@@ -1,6 +1,8 @@
 import request from 'request';
 import crypto from 'crypto';
 import _ from 'lodash';
+import mongoose from "mongoose";
+import {coinModel} from "../model/coin-value";
 
 const API_BASE_URL = 'https://api.binance.com/api';
 
@@ -29,7 +31,25 @@ export function getKlines(base, vcType) {
 			resolve(JSON.parse(body));
 		});
 	}).then(data => {
-		console.log(data);
+        console.log(`Receive Coin Data : ${vcType}`);
+        data.forEach((coin)=>{
+            let coinData = {
+                openTime: coin[0],
+                open: coin[1],
+                high: coin[2],
+                low: coin[3],
+                close: coin[4],
+                closeTime: coin[5],
+                coinName: vcType,
+                key: ''+coin[0]+':'+vcType
+            };
+            let task = new coinModel(coinData);
+            // console.log(`${vcType} Insert Start`);
+            task.save({overwrite: true}, function(err){
+                if(err) console.log(err);
+            });
+        });
+
 		return data;
 	})
 }
