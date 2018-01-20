@@ -1,4 +1,5 @@
 export default {
+    mongoDBURL:'mongodb://localhost:27017',
     VCTYPES: [
         "ADA",
         "ADX",
